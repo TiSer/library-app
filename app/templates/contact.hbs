@@ -1,25 +1,36 @@
 <div class="jumbotron">
   <div class="row">
       <div class="col-md-6">
-        <div class="form-group">
+        {{#if responseMessage}}
+
+          <div class="col-md-6">
+          <br/>
+            <div class="alert alert-success">
+              <h4>Thank you! Your message is sent.</h4>
+              <p>To: {{model.emailAddress}}</p>
+              <p>Message: {{model.message}}</p>
+              <p>Reference ID: {{model.id}}</p>
+            </div>
+          </div>
+
+      {{else}}
+
+        <div class="form-group has-feedback {{if model.isValidEmail 'has-success'}}">
           <label>Your email address*:</label>
-            {{input type="email" value=emailAddress class="form-control" placeholder="Please type your e-mail address." autofocus="autofocus"}}
+            {{input type="email" value=model.emailAddress class="form-control" placeholder="Please type your e-mail address." autofocus="autofocus"}}
+            {{#if model.isEmailValid}}<span class="glyphicon glyphicon-ok form-control-feedback"></span>{{/if}}
         </div>
-        <div class="form-group">
+        <div class="form-group has-feedback {{if model.isMessageEnoughLong 'has-success'}}">
           <label>Your message*:</label>
-          {{textarea value=message class="form-control" placeholder="Your message. (At least 5 characters.)" rows="7"}}
+          {{textarea value=model.message class="form-control" placeholder="Your message. (At least 5 characters.)" rows="7"}}
+          {{#if model.isMessageLongEnough}}<span class="glyphicon glyphicon-ok form-control-feedback"></span>{{/if}}
         </div>
 
-        <button class="btn btn-primary btn-lg btn-block" {{action 'saveMessage'}} disabled={{unless isValid 'disabled'}}>
+        <button class="btn btn-primary btn-lg btn-block" {{action 'saveContact' model}} disabled={{unless model.isValid 'disabled'}}>
           Send message
         </button>
-      </div>
 
-      {{#if responseMessage}}
-        <div class="col-md-6">
-        <br/>
-          <div class="alert alert-success">{{responseMessage}}</div>
-        </div>
       {{/if}}
+    </div>
   </div>
 </div>
