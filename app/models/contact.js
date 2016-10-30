@@ -6,6 +6,6 @@ export default DS.Model.extend({
   message: DS.attr('string'),
 
   isMessageLongEnough: Ember.computed.gte('message.length', 5),
-  isEmailValid: Ember.computed.match('emailAddress', /^.+@.+\..+$/),
+  isEmailValid: Ember.computed.match('email', /^.+@.+\..+$/),
   isValid: Ember.computed.and('isEmailValid', 'isMessageLongEnough'),
 });
