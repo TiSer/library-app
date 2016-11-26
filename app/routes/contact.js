@@ -31,7 +31,7 @@ export default Ember.Route.extend({
     willTransition() {
       let model = this.controller.get('model');
 
-      this.controller.get('model').rollbackAttributes();
+      model.rollbackAttributes();
       this.controller.set('responseMessage', false);
     }
 
